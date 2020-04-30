@@ -1,0 +1,30 @@
+<div id="tablaPosiciones" class="table-responsive">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>Posicion</th>
+                <th>Escudo</th>
+                <th>Nombre</th>
+                <th>Valor</th>
+                <th>G-E-P</th>
+                <th>Puntos a Favor</th>
+                <th>Puntos en Contra</th>
+                <th>Diferencia de Puntos</th>
+                <th>Puntos</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let t of teamsLeague; let i = index">
+                <td>{{i+1}}</td>
+                <td><img src={{t.badge}}></td>
+                <td>{{t.name}}</td>
+                <td>{{t.value}}</td>
+                <td>{{t.record}}</td>
+                <td>{{t.favorpoints}}</td>
+                <td>{{t.againstpoints}}</td>
+                <td>{{t.favorpoints - t.againstpoints}}</td>
+                <td><b>{{t.leaguepoints}}</b></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

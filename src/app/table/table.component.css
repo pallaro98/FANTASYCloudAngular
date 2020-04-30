@@ -1,0 +1,19 @@
+#tablaPosiciones thead {
+    width: 100%;
+}
+
+
+#tablaPosiciones {
+    text-align: center;
+    font-size: 15px;
+    overflow-y: scroll;
+    height: 625px;
+    padding: 0%;
+    margin: 0%;
+}
+
+#tablaPosiciones img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+}

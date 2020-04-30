@@ -1,0 +1,113 @@
+
+
+    
+    <!-- <form #logForm="ngForm" (ngSubmit)="login(logForm)">
+        <div class="form-group row col-12">
+            <label for="inputUsuario" class="col-form-label">Usuario:</label>
+            <input type="text" class="form-control" id="inputUsuario" placeholder="Nombre de usuario" name="Usuario"
+            ngModel required>
+        </div>
+        <div class="form-group row col-12">
+            <label for="inputPassword1" class="col-form-label">Contraseña: </label>
+            <input type="password" required class="form-control" id="inputPassword1" placeholder="Contraseña"
+            name="Password" ngModel required>
+        </div>
+        <div class="form-group row col-12 botones">
+            <button type="submit" class="btn btn-primary">Ingresar</button>
+        </div>
+    </form> -->
+
+<div class="fondo">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand mb-0 h1 mr-auto" href="#">FantasyLeague <span></span><i class="fas fa-futbol"></i></a>
+        <span class="navbar-item">
+        <img src="assets/images/LogoCompetencia/Competencia-1.png" alt="" srcset="">
+        </span>
+        <span class="navbar-item">
+        <img src="assets/images/LogoCompetencia/Competencia-2.png" alt="" srcset="">
+        </span>
+        <span class="navbar-item">
+        <img src="assets/images/LogoCompetencia/Competencia-3.png" alt="" srcset="">
+        </span>
+        <span class="navbar-item">
+        <img src="assets/images/LogoCompetencia/Competencia-4.png" alt="" srcset="">
+        </span>
+        <span class="navbar-item">
+        <img src="assets/images/LogoCompetencia/Competencia-5.png" alt="" srcset="">
+        </span>
+    </nav>
+      
+    <div class="container" id="logIn">
+        <div class="row" *ngIf="modoIniciarSesion && !clossingSession">
+            <div class="jumbotron col-12">
+              <img src="assets/images/Iconos/LoginIcon.png" alt="" srcset="">
+      
+              <form #logForm="ngForm" (ngSubmit)="login(logForm)">
+                <div class="form-group row col-12">
+                  <label for="inputUsuario" class="col-form-label">Usuario:</label>
+                  <input type="text" class="form-control" id="inputUsuario" placeholder="Nombre de usuario" name="Usuario"
+                    (change)="invalidForm = false;" ngModel required>
+                </div>
+                <div class="form-group row col-12">
+                  <label for="inputPassword1" class="col-form-label">Contraseña: </label>
+                  <input type="password" required class="form-control" id="inputPassword1" placeholder="Contraseña"
+                    name="Password" (change)="invalidForm = false;" ngModel required>
+                </div>
+                <div class="row col-12" *ngIf="invalidForm">
+                  <p style="color: red">
+                    Usuario y/o contraseña incorrecta
+                  </p>
+                </div>
+                <div class="form-group row col-12 botones">
+                  <button type="submit" class="btn btn-primary">Ingresar</button>
+                  <button type="button" class="btn btn-info" (click)="changeMode(false)">Registrate</button>
+                </div>
+              </form>
+            </div>
+        </div>
+      
+        <div class="row" *ngIf="!modoIniciarSesion && !clossingSession">
+            <div class="jumbotron col-12">
+                <img src="assets/images/Iconos/LoginIcon.png" alt="" srcset="">
+                <form #registerForm="ngForm" (ngSubmit)="register(registerForm)">
+                    <div class="form-group row col-12">
+                        <label for="inputEmail2" class="col-form-label">Email:</label>
+                        <input type="email" class="form-control" id="inputEmail2" placeholder="Email" name="emailR"
+                        (change)="invalidFormR = false;" ngModel required>
+                    </div>
+                    <div class="form-group row col-12">
+                        <label for="inputUsuario2" class="col-form-label">Usuario:</label>
+                        <input type="text" class="form-control" id="inputUsuario2" placeholder="Usuario" name="UsuarioR"
+                        (change)="invalidFormR = false;" ngModel required>
+                    </div>
+                    <div class="form-group row col-12">
+                        <label for="inputPassword2" class="col-form-label">Contraseña: </label>
+                        <input type="password" required class="form-control" id="inputPassword2" placeholder="Contraseña"
+                        name="PassR" (change)="invalidFormR = false;" ngModel required>
+                    </div>
+                    <div class="form-group row col-12">
+                        <label for="inputPassword3" class="col-form-label">Confirmar contraseña: </label>
+                        <input type="password" required class="form-control" id="inputPassword3" placeholder="Contraseña"
+                        name="Pass2R" (change)="invalidFormR = false;" ngModel required>
+                    </div>
+                    <div class="row col-12" *ngIf="invalidFormR">
+                        <p style="color: red">
+                        Información inválida, intenta de nuevo
+                        </p>
+                    </div>
+                    <div class="form-group row col-12 botones">
+                        <button type="submit" class="btn btn-primary">Registrate</button>
+                        <button type="submit" class="btn btn-info" (click)="changeMode(true)">Ingresa a tu cuenta</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+      
+        <div class="row" id="formLogin" *ngIf="clossingSession">
+            <div class="jumbotron col-12">
+                <img src="assets/images/Iconos/LoginIcon.png" alt="" srcset="">
+                <h1>Ha cerrado sesion</h1>
+            </div>
+        </div>
+    </div>
+</div>

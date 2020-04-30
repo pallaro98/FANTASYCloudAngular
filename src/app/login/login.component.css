@@ -1,0 +1,85 @@
+/* .container{
+    height: 100%;
+} */
+
+.fondo{
+    height: 100%;
+}
+
+.container{
+    background-image: url("../../assets/images/Fondos/fondoLogin.jpg");
+    background-size:     cover;                      /* <------ */
+    background-repeat:   no-repeat;
+    background-position: center center;
+    min-width: 100%;
+    height: inherit;
+    margin: auto;
+    padding: 0px;
+}
+
+button{
+    width: 25%;
+    /* min-width: ; */
+    min-width: 90px;
+    display: inline-block;
+}
+
+.botones{
+    padding-top: 1%;
+}
+
+.container .row{
+    margin: 0px auto;
+}
+
+label{
+    color: black;
+}
+
+nav{
+    min-height: 55px;
+}
+
+.navbar{
+    padding:0px 16px;
+}
+
+nav img{
+    max-height: 50px;
+}
+
+nav span{
+    padding: 0px 10px;
+}
+
+.jumbotron{
+    margin-top: 15%;
+    max-height: 100%;
+    background-color: rgba(233, 236, 239, 0.8);
+    font-weight: bold;
+}
+
+div div.row{
+    width: 60%;
+    margin: 10px auto; 
+
+}
+
+.jumbotron img{
+    height: 100px;
+    margin: auto;
+    display: block;
+}
+
+
+.jumbotron button:nth-child(2){
+    margin-left: 3%;
+    display: inline-block;
+}
+
+h1{
+    text-align: center;
+}
+
+
+

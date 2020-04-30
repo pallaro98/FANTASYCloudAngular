@@ -1,0 +1,94 @@
+<div class="container-fluid" id="principal">
+    <div class="col-md-6 col-sm-6" id="ListaEquipos">
+      <h1 id="title1">Mis Equipos</h1>
+      <div *ngFor="let t of teams" class="elementoEquipo container">
+        <div class="row">
+          <div class="escudo col-6"> <img src={{t.badge}}></div>
+          <button class="btn btn-primary col-6" (click)="updateCurrentTeam(t)">
+            <span class="teamName">{{t.name}}</span>
+          </button>
+        </div>
+        <!-- <br> -->
+      </div>
+  
+      <ng-template #content let-modal>
+  
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Agregar equipo</h4>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="jumbotron col-12">
+  
+                <form #teamAddForm="ngForm" (ngSubmit)="addTeam(teamAddForm)">
+                  <div class="form-group row col-12">
+                    <input type="file" class="form-control" id="img" name="img" accept="image/*" ngModel required>
+                    <label for="inputUsuario" class="col-form-label">Nombre del Equipo:</label>
+                    <input type="text" class="form-control" placeholder="Equipo" name="nombreEquipo"
+                      (change)="invalidForm = false;" ngModel required>
+                  </div>
+                  <div class="form-group row col-12 botones">
+                    <button type="submit" class="btn btn-primary">Registrar</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-dark">Close</button>
+        </div>
+      </ng-template>
+      <div class="row confButtons">
+        <div class="col-6">
+          <button type="button" class="btn btn-success" (click)="open(content)">+</button>
+        </div>
+        <div class="col-6">
+          <button type="button" class="btn btn-info">Ajustes</button>
+        </div>
+      </div>
+  
+  
+  
+    </div>
+  
+    <div class="col-md-6 col-sm-6" id="informacionCompeticiones">
+      <div class="row" id="logosCompeticiones">
+        <div class="col" (click)="changeCompetitionInfo(1)"><img src="assets/images/LogoCompetencia/Competencia-1.png"></div>
+        <div class="col" (click)="changeCompetitionInfo(2)"><img src="assets/images/LogoCompetencia/Competencia-2.png"></div>
+        <div class="col" (click)="changeCompetitionInfo(3)"><img src="assets/images/LogoCompetencia/Competencia-3.png"></div>
+        <div class="col" (click)="changeCompetitionInfo(4)"><img src="assets/images/LogoCompetencia/Competencia-4.png"></div>
+        <div class="col" (click)="changeCompetitionInfo(5)"><img src="assets/images/LogoCompetencia/Competencia-5.png"></div>
+      </div>
+  
+      <div class="col-sm-12" id="tablaPosiciones" *ngIf="competitionInfo == 1">
+        <iframe width="100%" height="100%" src="https://www.transfermarkt.es/serie-a/startseite/wettbewerb/IT1">
+        </iframe>
+      </div>
+  
+      <div class="col-sm-12" id="tablaPosiciones" *ngIf="competitionInfo == 2">
+        <iframe width="100%" height="100%" src="https://www.transfermarkt.es/1-bundesliga/startseite/wettbewerb/L1">
+        </iframe>
+      </div>
+  
+      <div class="col-sm-12" id="tablaPosiciones" *ngIf="competitionInfo == 3">
+        <iframe width="100%" height="100%" src="https://www.transfermarkt.es/ligue-1/startseite/wettbewerb/FR1">
+        </iframe>
+      </div>
+  
+      <div class="col-sm-12" id="tablaPosiciones" *ngIf="competitionInfo == 4">
+        <iframe width="100%" height="100%" src="https://www.transfermarkt.es/premier-league/startseite/wettbewerb/GB1">
+        </iframe>
+      </div>
+  
+      <div class="col-sm-12" id="tablaPosiciones" *ngIf="competitionInfo == 5">
+        <iframe width="100%" height="100%" src="https://www.transfermarkt.es/primera-division/startseite/wettbewerb/ES1">
+        </iframe>
+      </div>
+  
+    </div>
+  </div>

@@ -1,0 +1,19 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="w-100 order-1 order-md-0 ">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+            </li>
+            <li class="nav-item">
+                <a routerLink="table" class="nav-link" routerLinkActive="active">Tabla Posiciones</a>
+            </li>
+            <li class="nav-item">
+                <a routerLink="matches" class="nav-link" routerLinkActive="active">Enfrentamientos</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+  
+<img class="userimage" src="{{league.logo}}" alt="">
+<i class="fas fa-user"></i> {{league.name}}
+
+<router-outlet></router-outlet>

@@ -1,0 +1,68 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-primary" id="filtros">
+    
+    <div class="container-fluid">
+      <div class="row">
+
+        
+
+        <form #filterForm="ngForm" (ngSubmit)="submit(filterForm)">
+            <div class="navbar-collapse w-100">
+
+                <select name="selectCompeticion" ngModel #selectCompeticion="ngModel" (change)="changeCompetition(selectCompeticion.value)">
+                    <option value="">Cualquiera</option>
+                    <option *ngFor="let c of competitions" value={{c.objectid}}>{{c.name}}</option>
+                </select>
+
+                <select name="selectClub" ngModel #selectClub="ngModel">
+                    <option value="">Cualquiera</option>
+                    <option *ngFor="let c of clubs"  value = {{c.objectid}} >{{c.name}}</option>                          
+                </select>
+
+                <select ngModel name="selectPosicion" #selectPosicion="ngModel">
+                    <option value="">Cualquiera</option>
+                    <option value="PO">PO</option>
+                    <option value="LD">LD</option>
+                    <option value="DFD">DFD</option>
+                    <option value="DFC">DFC</option>
+                    <option value="DFI">DFI</option>
+                    <option value="LI">LI</option>
+                    <option value="MCD">MCD</option>
+                    <option value="MD">MD</option>
+                    <option value="MC">MC</option>
+                    <option value="MI">MI</option>
+                    <option value="MCO">MCO</option>
+                    <option value="ED">ED</option>
+                    <option value="MP">MP</option>
+                    <option value="DC">DC</option>
+                    <option value="EI">EI</option>
+                </select>
+
+                <label for="MinAge" style="margin-left: 5px; margin-right: 5px;">Age:</label>
+                <p style="margin-left: 5px; margin-right: 5px;">{{minage}}</p>
+                <input type="range" ngModel name="MinAge" #MinAge="ngModel" min=15 max={{maxage}} (change)="setMinAge(MinAge.value)">
+
+                <input type="range" ngModel name="MaxAge" #MaxAge="ngModel" min={{minage}} max="50" (change)="setMaxAge(MaxAge.value)">
+                <p style="margin-left: 5px; margin-right: 5px;">{{maxage}}</p>
+                
+                <label for="MinValue" style="margin-left: 5px; margin-right: 5px;">Value:</label>
+                <p style="margin-left: 5px; margin-right: 5px;">{{minvalue}}</p>
+                <input type="range" ngModel name="MinValue" #MinValue="ngModel" min="0" max={{maxvalue}} (change)="setMinValue(MinValue.value)">
+
+                <input type="range" ngModel name="MaxValue" #MaxValue="ngModel" min={{minvalue}} max="500000000" (change)="setMaxValue(MaxValue.value)">
+                <p style="margin-left: 5px; margin-right: 5px;">{{maxvalue}}</p>
+                
+                    
+                <input type="text" ngModel name="buscarNombre" #buscarNombre="ngModel" class="form-control mr-sm-2"  placeholder="Search" aria-label="Search">
+                <button type="submit" class="btn btn-outline-light btn-block">Buscar</button>
+            </div>
+
+        </form>
+
+
+
+
+        
+        </div>
+    </div>
+</nav>
+

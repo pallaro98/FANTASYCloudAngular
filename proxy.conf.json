@@ -1,0 +1,26 @@
+{
+    "/Test": {
+        "target": "https://rytwcr39n6.execute-api.us-east-1.amazonaws.com",
+        "secure": false
+    },
+    "/Test/users": {
+        "target": "https://rytwcr39n6.execute-api.us-east-1.amazonaws.com/Test/users",
+        "secure": false
+    },
+    "/Test/login2": {
+        "target": "https://rytwcr39n6.execute-api.us-east-1.amazonaws.com/Test/login2",
+        "secure": false
+    },
+    "/Test/users/login": {
+        "target": "https://rytwcr39n6.execute-api.us-east-1.amazonaws.com/Test/users/login",
+        "secure": false
+    },
+    "/Test/teams/{user}": {
+        "target": "https://rytwcr39n6.execute-api.us-east-1.amazonaws.com/Test/teams/{user}",
+        "secure": false
+    },
+    "/Test/itembyid/{item}": {
+        "target": "https://rytwcr39n6.execute-api.us-east-1.amazonaws.com/Test/itembyid/{item}",
+        "secure": false
+    }
+}

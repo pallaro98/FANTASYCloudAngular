@@ -1,0 +1,44 @@
+<nav *ngIf="show" class="navbar navbar-expand-md navbar-dark bg-primary sticky-top">
+    <div  class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item" *ngIf="inTeams">
+          <a routerLink="/teams" class="nav-link" routerLinkActive="active">Inicio</a>
+        </li>
+        <li class="nav-item" *ngIf="inTeams && inSinLiga">
+          <a routerLink="/myteam" class="nav-link" routerLinkActive="active" >Mi equipo</a>
+        </li>
+        <li class="nav-item" *ngIf="inTeams && inSinLiga">
+          <a routerLink="/league" class="nav-link" routerLinkActive="active">Liga</a>
+        </li>
+        <li class="nav-item" *ngIf="inTeams && inSinLiga">
+          <a routerLink="/market" class="nav-link" routerLinkActive="active">Mercado</a>
+        </li>
+        <li class="nav-item" *ngIf="inTeams && inSinLiga">
+          <a routerLink="/howtoplay" class="nav-link" routerLinkActive="active">Reglamento</a>
+        </li>
+        <li class="nav-item" *ngIf="inTeams && inSinLiga">
+          <a routerLink="/players" class="nav-link" routerLinkActive="active">Jugadores</a>
+        </li>
+      </ul>
+    </div>
+    <div class="mx-auto order-0">
+      <a class="navbar-brand mx-auto" style="color: white;">Fantasy League <i class="fas fa-futbol"></i></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+    <div class="navbar-collapse collapse w-100 order-3 order-md-0 dual-collapse2">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            <img class="userimage" src="{{userImage}}" alt="">
+            <i class="fas fa-user"></i> {{userName}} </a>
+          <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
+            <a class="dropdown-item">Mi cuenta</a>
+            <a class="dropdown-item" (click)="cerrarsesion()">Cerrar sesión</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
