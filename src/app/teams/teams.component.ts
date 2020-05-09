@@ -7,6 +7,7 @@ import { Team } from '../classes/Team';
 import { NgForm } from '@angular/forms';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { LeagueService } from '../league.service';
+import { LineupsService } from '../lineups.service';
 
 
 @Component({
@@ -21,7 +22,8 @@ export class TeamsComponent implements OnInit {
   closeResult: string;
   competitionInfo: number;
   constructor(  private authenticationService: AuthenticationService, private router: Router,
-                private teamsService: TeamsService, private modalService: NgbModal, private leagueService: LeagueService) {
+                private teamsService: TeamsService, private modalService: NgbModal,
+                private lineupsService: LineupsService, private leagueService: LeagueService) {
   }
 
   ngOnInit(): void {
@@ -37,8 +39,10 @@ export class TeamsComponent implements OnInit {
 
   updateCurrentTeam(t: Team) {
     this.teamsService.updateCurrentTeam(t);
-    this.leagueService.getLeagueById(t.league).then(() => {
-      this.router.navigate(['/myteam']);
+    this.lineupsService.getLineupByMatchdayTeam('1', t.objectid, 'current').then(() => { //test
+      this.leagueService.getLeagueById(t.league).then(() => {
+        this.router.navigate(['/myteam']);
+      });
     });
   }
 

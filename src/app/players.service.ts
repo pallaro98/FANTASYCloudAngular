@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class PlayersService {
   players: Player[];
+  playersToShow: Player[];
   currentPlayer: Player;
 
   constructor(private httpClient: HttpClient) { }
@@ -15,58 +16,68 @@ export class PlayersService {
     return this.currentPlayer;
   }
 
-  getPlayerByID(id: number): Promise<Player> {
-
-    return new Promise((resolve, reject) => {
-      const url = 'https://ast0b1w1p1.execute-api.us-east-1.amazonaws.com/pruebas/itembyid/' + 'playersFANTASY' + '-' + id;
-
-      this.httpClient.get<Player>(url).subscribe(player => {
-
-        const objectid = player['objectid'];
-        const club = player['club'];
-        const country = player['country'];
-        const name = player['name'];
-        const photo = player['photo'];
-        const positions = player['positions'];
-        const value = player['value'];
-        const points = player['points'];
-
-        const p = new Player(objectid, club, country, name, photo, positions, value, points);
-        this.currentPlayer = p;
-        console.log(p);
-        resolve(p);
-      });
-    });
+  getPlayerByID(id: number) {
   }
 
-  filterPlayers(name, competition, club, position, minage, maxage, minvalue, maxvalue): Promise<Player[]> {
+  getAllPlayers(): Promise<Player[]> {
 
     return new Promise((resolve, reject) => {
-      const url = 'url'  + 'playersFANTASY' + '-'
-                      + ((name !== '') ? '*' : name) + '-'
-                      + ((club !== '') ? '*' : club) + '-'
-                      + ((position !== '') ? '*' : position) + '-'
-                      + minage + '-'
-                      + maxage + '-'
-                      + minvalue + '-'
-                      + maxvalue;
+      const url = 'https://ast0b1w1p1.execute-api.us-east-1.amazonaws.com/pruebas/players/allplayers';
 
       this.httpClient.get<Player[]>(url).subscribe(players => {
         const allplayers = [];
         players.forEach(p => {
-          allplayers.push(new Player(   p['objectid']['S'],
-                                        p['user']['S'],
-                                        p['league']['S'],
-                                        p['name']['S'],
-                                        p['badge']['S'],
-                                        p['lineup']['S'],
-                                        p['budget']['N'],
-                                        p['value']['N']
+          allplayers.push(new Player(   p['objectid'],
+                                        p['club'],
+                                        p['country'],
+                                        p['name'],
+                                        p['photo'],
+                                        p['positions'],
+                                        p['value'],
+                                        p['points'],
+                                        this.findAge(p['birthday'])
           ));
         });
         this.players = allplayers;
+        console.log(allplayers);
         resolve(allplayers);
       });
     });
   }
+
+findAge(date): number {
+  const today = new Date();
+  const BirthDate = new Date(date);
+  let age = today.getFullYear() - BirthDate.getFullYear();
+  const month = today.getMonth() - BirthDate.getMonth();
+  if (month < 0) {
+    age--;
+  }
+  return age;
+}
+
+
+getPlayers() {
+  return this.players;
+}
+
+filterPlayers(name, competition, club, pos, minage, maxage, minvalue, maxvalue): Player[] {
+  let filtroFutbolistas = this.players.slice();
+  if (name !== '') {
+    filtroFutbolistas = filtroFutbolistas.filter(futbolista => (futbolista.name.indexOf(name) > -1));
+  }
+  if (competition !== '') {
+    //filtroFutbolistas = filtroFutbolistas.filter(futbolista => (futbolista.competition === competition));
+  }
+  if (club !== '') {
+    filtroFutbolistas = filtroFutbolistas.filter(futbolista => (futbolista.club === club));
+  }
+  if (pos !== '') {
+    filtroFutbolistas = filtroFutbolistas.filter(futbolista => (futbolista.positions.indexOf(pos) > -1));
+  }
+  filtroFutbolistas = filtroFutbolistas.filter(futbolista => (futbolista.age > minage && futbolista.age < maxage && futbolista.value>minvalue && futbolista.value<maxvalue));
+
+  return filtroFutbolistas;
+}
+
 }

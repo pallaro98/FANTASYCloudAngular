@@ -17,6 +17,7 @@ import { PlayersComponent } from './players/players.component';
 import { MatchesComponent } from './matches/matches.component';
 import { MatchComponent } from './match/match.component';
 import { TableComponent } from './table/table.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { TableComponent } from './table/table.component';
     HttpClientModule,
     AppRoutingModule,
     NgbModalModule,
-    FormsModule
+    FormsModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

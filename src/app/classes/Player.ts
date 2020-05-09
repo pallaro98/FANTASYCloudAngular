@@ -7,6 +7,7 @@ export class Player {
         public photo: string,
         public positions: string,
         public value: number,
-        public points: number
+        public points: number,
+        public age: number
     ) {}
 }

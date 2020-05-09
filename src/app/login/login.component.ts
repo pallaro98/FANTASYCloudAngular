@@ -5,6 +5,7 @@ import { AuthenticationService } from '../authentication.service';
 import { User } from '../classes/User';
 import { CompetitionsService } from '../competitions.service';
 import { ClubsService } from '../clubs.service';
+import { PlayersService } from '../players.service';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,7 @@ import { ClubsService } from '../clubs.service';
 export class LoginComponent implements OnInit {
   constructor(  private authenticationService: AuthenticationService, private router: Router,
                 private clubsService: ClubsService,
+                private playersService: PlayersService,
                 private competititonsService: CompetitionsService) { }
 
   modoIniciarSesion = true;
@@ -41,7 +43,9 @@ export class LoginComponent implements OnInit {
     this.authenticationService.loginvalidate(log.value.Usuario, log.value.Password).then(() => {
       this.competititonsService.updateCompetitions().then(() => {
         this.clubsService.updateClubs().then(() => {
-          this.router.navigate(['/teams']);
+          this.playersService.getAllPlayers().then(() => {
+            this.router.navigate(['/teams']);
+          });
         });
       });
     }).catch(() => {

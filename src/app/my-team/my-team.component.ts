@@ -54,6 +54,7 @@ export class MyTeamComponent implements OnInit {
     }
 
     this.currentTeam = this.teamsService.getCurrentTeam();
+    this.currentLineup = this.lineupsService.getCurrentTeamLineup();
 
     if (this.currentTeam.league == null) {
       //this.router.navigate(['/sinliga']);
@@ -64,5 +65,6 @@ export class MyTeamComponent implements OnInit {
     }
   }
 
+ 
 
 }

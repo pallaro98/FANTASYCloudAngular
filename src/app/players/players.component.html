@@ -1,11 +1,9 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-primary" id="filtros">
     
     <div class="container-fluid">
-      <div class="row">
+      <div class="row">      
 
-        
-
-        <form #filterForm="ngForm" (ngSubmit)="submit(filterForm)">
+        <form #filterForm="ngForm" (ngSubmit)="submit()">
             <div class="navbar-collapse w-100">
 
                 <select name="selectCompeticion" ngModel #selectCompeticion="ngModel" (change)="changeCompetition(selectCompeticion.value)">
@@ -13,28 +11,28 @@
                     <option *ngFor="let c of competitions" value={{c.objectid}}>{{c.name}}</option>
                 </select>
 
-                <select name="selectClub" ngModel #selectClub="ngModel">
+                <select name="selectClub" ngModel #selectClub="ngModel" (change)="changeClub(selectClub.value)">
                     <option value="">Cualquiera</option>
                     <option *ngFor="let c of clubs"  value = {{c.objectid}} >{{c.name}}</option>                          
                 </select>
 
-                <select ngModel name="selectPosicion" #selectPosicion="ngModel">
+                <select ngModel name="selectPosicion" #selectPosicion="ngModel" (change)="changePosition(selectPosicion.value)">
                     <option value="">Cualquiera</option>
-                    <option value="PO">PO</option>
-                    <option value="LD">LD</option>
-                    <option value="DFD">DFD</option>
-                    <option value="DFC">DFC</option>
-                    <option value="DFI">DFI</option>
-                    <option value="LI">LI</option>
-                    <option value="MCD">MCD</option>
-                    <option value="MD">MD</option>
-                    <option value="MC">MC</option>
-                    <option value="MI">MI</option>
-                    <option value="MCO">MCO</option>
-                    <option value="ED">ED</option>
-                    <option value="MP">MP</option>
-                    <option value="DC">DC</option>
-                    <option value="EI">EI</option>
+                    <option value="GK">GK</option>
+                    <option value="RWB">RWB</option>
+                    <option value="RB">RB</option>
+                    <option value="CB">CB</option>
+                    <option value="LB">LB</option>
+                    <option value="LWB">LWB</option>
+                    <option value="CDM">CDM</option>
+                    <option value="RM">RM</option>
+                    <option value="CM">CM</option>
+                    <option value="LM">LM</option>
+                    <option value="CAM">CAM</option>
+                    <option value="RW">RW</option>
+                    <option value="CF">CF</option>
+                    <option value="ST">ST</option>
+                    <option value="LW">LW</option>
                 </select>
 
                 <label for="MinAge" style="margin-left: 5px; margin-right: 5px;">Age:</label>
@@ -52,17 +50,40 @@
                 <p style="margin-left: 5px; margin-right: 5px;">{{maxvalue}}</p>
                 
                     
-                <input type="text" ngModel name="buscarNombre" #buscarNombre="ngModel" class="form-control mr-sm-2"  placeholder="Search" aria-label="Search">
+                <input type="text" ngModel name="buscarNombre" #buscarNombre="ngModel" class="form-control mr-sm-2"  placeholder="Search" aria-label="Search" (change)="changeName(buscarNombre.value)">
                 <button type="submit" class="btn btn-outline-light btn-block">Buscar</button>
             </div>
 
         </form>
 
-
-
-
-        
+        <div id="listaJugadores" class="table-responsive">
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Positions</th>
+                        <th>Value</th>
+                        <th>Points</th>
+                    </tr>
+                </thead>
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                <tbody>
+                    <!-- <tr *ngFor="let p of players | paginate: {itemsPerPage: 7, currentPage: p}; let i = index" (click)="open(content, fut)"> -->
+                        <tr *ngFor="let p of players | paginate: {itemsPerPage: 7, currentPage: p}; let i = index">
+                        <td><img src={{p.photo}}></td>
+                        <td>{{p.name}}</td>
+                        <td>{{p.age}}</td>
+                        <td>{{p.positions}}</td>
+                        <td>${{p.value}}</td>
+                        <td>{{p.points}}</td>
+                      </tr>
+                </tbody>
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </table>
         </div>
+      </div>   
     </div>
 </nav>
 
