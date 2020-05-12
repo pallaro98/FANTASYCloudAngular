@@ -3,6 +3,7 @@ import { TeamsService } from './teams.service';
 import { League } from './classes/League';
 import { HttpClient } from '@angular/common/http';
 import { Team } from './classes/Team';
+import { Player } from './classes/Player';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ import { Team } from './classes/Team';
 export class LeagueService {
   currentLeague: League;
   teamsLeague: Team[];
+  owners: Map<string, string>;
   constructor(private teamsService: TeamsService, private httpClient: HttpClient) { }
 
 
@@ -31,6 +33,23 @@ export class LeagueService {
         this.currentLeague = l;
         console.log(l);
         resolve(l);
+      });
+    });
+  }
+
+  getOwnersByLeague() {
+    return new Promise ((resolve, reject) => {
+      const url = 'https://ast0b1w1p1.execute-api.us-east-1.amazonaws.com/pruebas/owners/' + this.currentLeague.objectid;
+      this.httpClient.get<any[]>(url).subscribe(owner => {
+        const leagueowners = new Map<string, string>();
+        owner.forEach(o => {
+          leagueowners.set(o['player']['S'], o['team']['S']);
+        });
+        this.owners = leagueowners;
+        console.log(leagueowners);
+        console.log(this.owners);
+
+        resolve(leagueowners);
       });
     });
   }
@@ -74,5 +93,24 @@ export class LeagueService {
 
   getCurrentLeague() {
     return this.currentLeague;
+  }
+
+  getOwners() {
+    return this.owners;
+  }
+
+  getTeamByID(id) {
+      return this.teamsLeague.slice().filter(team => (team.objectid === id))[0];
+  }
+
+  gteamsLeague() {
+    return this.teamsLeague;
+  }
+
+  changeOwner(p, t){
+    this.owners.delete(p);
+    this.owners.set(p, t);
+    //todo update db
+    return this.owners;
   }
 }

@@ -9,6 +9,7 @@ import { MatchService } from '../match.service';
 import { PlayersService } from '../players.service';
 import { Player } from '../classes/Player';
 import { Lineup } from '../classes/Lineup';
+import { ClubsService } from '../clubs.service';
 
 @Component({
   selector: 'app-my-team',
@@ -18,33 +19,18 @@ import { Lineup } from '../classes/Lineup';
 export class MyTeamComponent implements OnInit {
   currentTeam: Team;
   currentLineup: Lineup;
-  is3_4_3 = false;
-  is3_5_2 = false;
-  is4_3_3 = false;
-  is4_4_2 = false;
-  is4_5_1 = false;
-  is5_3_2 = false;
-  is5_4_1 = false;
-  titular1: Player;
-  titular2: Player;
-  titular3: Player;
-  titular4: Player;
-  titular5: Player;
-  titular6: Player;
-  titular7: Player;
-  titular8: Player;
-  titular9: Player;
-  titular10: Player;
-  titular11: Player;
-  banca1: Player;
-  banca2: Player;
-  banca3: Player;
+  reservas: Player[];
+
+  subsMode = false;
+  selectedPlayer = -1;
+  changesMade = false;
 
   constructor(  private authenticationService: AuthenticationService,
                 private matchService: MatchService,
                 private lineupsService: LineupsService,
                 private teamsService: TeamsService,
                 private playersService: PlayersService,
+                public clubsService: ClubsService,
                 private router: Router,
                 private leagueService: LeagueService) { }
 
@@ -65,6 +51,43 @@ export class MyTeamComponent implements OnInit {
     }
   }
 
- 
+  changeFormation(formation: string) {
+    this.changesMade = true;
+    this.currentLineup.formation = formation;
+  }
+
+  changeMode() {
+    this.subsMode = (!this.subsMode);
+    this.selectedPlayer = -1;
+  }
+
+  save() {
+    this.changesMade = false;
+  }
+
+  showReserves() {
+
+  }
+
+  showPlayer() {
+
+  }
+
+  playerAction(p) {
+    if (this.subsMode) {
+      if (this.selectedPlayer === -1) {
+        this.selectedPlayer = p;
+      } else {
+        const temp = this.currentLineup.players[p];
+        this.currentLineup.players[p] = this.currentLineup.players[this.selectedPlayer];
+        this.currentLineup.players[this.selectedPlayer] = temp;
+
+        this.selectedPlayer = -1;
+        this.changesMade = true;
+      }
+    } else {
+
+    }
+  }
 
 }

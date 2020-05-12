@@ -16,7 +16,8 @@ export class PlayersService {
     return this.currentPlayer;
   }
 
-  getPlayerByID(id: number) {
+  getPlayerByID(id: string): Player {
+    return this.players.slice().filter(futbolista => (futbolista.objectid === id))[0];
   }
 
   getAllPlayers(): Promise<Player[]> {
@@ -78,6 +79,14 @@ filterPlayers(name, competition, club, pos, minage, maxage, minvalue, maxvalue):
   filtroFutbolistas = filtroFutbolistas.filter(futbolista => (futbolista.age > minage && futbolista.age < maxage && futbolista.value>minvalue && futbolista.value<maxvalue));
 
   return filtroFutbolistas;
+}
+
+getPlayersArrayByID(p: string[]): Player[] {
+  const players = [];
+  p.forEach(a => {
+    players.push(this.getPlayerByID(a));
+  });
+  return players;
 }
 
 }

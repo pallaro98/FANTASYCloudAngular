@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { Team } from './classes/Team';
 import { User } from './classes/User';
+import { Player } from './classes/Player';
 
 @Injectable({
   providedIn: 'root'
@@ -52,6 +53,20 @@ export class TeamsService {
   }
 
   getCurrentTeam() {
+    return this.currentTeam;
+  }
+
+  buyPlayer(p: Player) {
+    this.currentTeam.budget -= p.value;
+    this.currentTeam.value += p.value;
+    //todo update db
+    return this.currentTeam;
+  }
+
+  sellPlayer(p: Player) {
+    this.currentTeam.budget += p.value;
+    this.currentTeam.value -= p.value;
+    //todo update db
     return this.currentTeam;
   }
 

@@ -1,3 +1,5 @@
+import { Player } from './Player';
+
 export class Lineup {
     constructor(
         public objectid: string,
@@ -6,19 +8,20 @@ export class Lineup {
         public matchday: number,
         public points: number,
         public team: string,
-        public player1: string,
-        public player2: string,
-        public player3: string,
-        public player4: string,
-        public player5: string,
-        public player6: string,
-        public player7: string,
-        public player8: string,
-        public player9: string,
-        public player10: string,
-        public player11: string,
-        public bench1: string,
-        public bench2: string,
-        public bench3: string
+        public players: Player[],
+        // public player1: Player,
+        // public player2: Player,
+        // public player3: Player,
+        // public player4: Player,
+        // public player5: Player,
+        // public player6: Player,
+        // public player7: Player,
+        // public player8: Player,
+        // public player9: Player,
+        // public player10: Player,
+        // public player11: Player,
+        // public bench1: Player,
+        // public bench2: Player,
+        // public bench3: Player
     ) {}
 }

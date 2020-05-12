@@ -22,10 +22,7 @@ export class TableComponent implements OnInit {
     if (!this.authenticationService.isUserLogged()) {
       this.router.navigate(['/authentication']);
     }
-    this.leagueService.getteamsLeague().then(teams => {
-      this.teamsLeague = teams;
-      console.log(this.teamsLeague);
-    });
+    this.teamsLeague = this.leagueService.gteamsLeague();
   }
 
 }

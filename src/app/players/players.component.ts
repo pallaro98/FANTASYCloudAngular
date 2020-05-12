@@ -8,6 +8,8 @@ import { Club } from '../classes/Club';
 import { NgForm } from '@angular/forms';
 import { ClubsService } from '../clubs.service';
 import { PlayersService } from '../players.service';
+import { LeagueService } from '../league.service';
+import { TeamsService } from '../teams.service';
 
 @Component({
   selector: 'app-players',
@@ -19,7 +21,7 @@ export class PlayersComponent implements OnInit {
   players;
   competitions: Competition[];
   clubs: Club[];
-  owners: Map<Player, string>;
+  owners: Map<string, string>;
   minage = 15;
   maxage = 50;
   minvalue = 0;
@@ -29,10 +31,14 @@ export class PlayersComponent implements OnInit {
   currentposition = '';
   currentname = '';
 
+  currentTeam;
+
   constructor(  private authenticationService: AuthenticationService, private router: Router,
                 private competitionService: CompetitionsService,
                 private playersService: PlayersService,
-                private clubsService: ClubsService
+                private clubsService: ClubsService,
+                private leagueService: LeagueService,
+                private teamsService: TeamsService
     ) { }
 
   ngOnInit(): void {
@@ -43,6 +49,8 @@ export class PlayersComponent implements OnInit {
     this.competitions = this.competitionService.getCompetitions();
     this.clubs = this.clubsService.getClubs();
     this.players = this.playersService.getPlayers();
+    this.owners = this.leagueService.getOwners();
+    this.currentTeam = this.teamsService.getCurrentTeam();
   }
 
   changeCompetition(competition) {
@@ -91,4 +99,24 @@ export class PlayersComponent implements OnInit {
     this.maxvalue = max;
   }
 
+  getOwner(id) {
+    if (this.owners.get(id) === 'free') {
+      return 'free';
+    }
+    return this.leagueService.getTeamByID(this.owners.get(id));
+  }
+
+  buyPlayer(p) {
+    this.owners = this.leagueService.changeOwner(p, this.currentTeam.objectid);
+    this.currentTeam = this.teamsService.buyPlayer(this.playersService.getPlayerByID(p));
+    console.log(this.currentTeam);
+    console.log(this.owners);
+  }
+
+  sellPlayer(p) {
+    this.owners = this.leagueService.changeOwner(p, 'free');
+    this.currentTeam = this.teamsService.sellPlayer(this.playersService.getPlayerByID(p));
+    console.log(this.currentTeam);
+    console.log(this.owners);
+  }
 }

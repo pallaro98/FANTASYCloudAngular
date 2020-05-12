@@ -39,4 +39,8 @@ export class ClubsService {
   getClubsByCompetition(competition: string): Club[] {
     return this.clubs.filter(c => c.competition === competition);
   }
+
+  getUniform(id: string): string {
+    return this.clubs.slice().filter(club => (club.objectid === id))[0].uniform;
+  }
 }

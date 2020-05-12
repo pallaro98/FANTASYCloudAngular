@@ -1,0 +1,594 @@
+<div class="container-fluid">
+
+    <div class="row" id="barraCambios">
+        <div class="col-md-3">
+            <img src='{{currentTeam.badge}}' alt="" id="logoImg">
+        </div>
+        <div class="col-md-4">
+            <h2>{{currentTeam.name}}</h2>
+        </div>
+        <div class="col-md-3 botonesDeControl">
+            <div class="dropdown">
+                <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{currentLineup.formation}}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" (click)="changeFormation('3-4-3')">3-4-3</a>
+                    <a class="dropdown-item" (click)="changeFormation('3-5-2')">3-5-2</a>
+                    <a class="dropdown-item" (click)="changeFormation('4-3-3')">4-3-3</a>
+                    <a class="dropdown-item" (click)="changeFormation('4-4-2')">4-4-2</a>
+                    <a class="dropdown-item" (click)="changeFormation('4-5-1')">4-5-1</a>
+                    <a class="dropdown-item" (click)="changeFormation('5-3-2')">5-3-2</a>
+                    <a class="dropdown-item" (click)="changeFormation('5-4-1')">5-4-1</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2 botonesDeControl">
+           <!-- <app-modal-cambios></app-modal-cambios>-->
+           <button (click)="changeMode()" [ngStyle]="{'background-color': this.subsMode? 'green' : 'red'}">Substitution</button>
+           <button (click)="save()" [ngStyle]="{'background-color': this.changesMade? 'blue' : 'white'}">Save</button>
+           <button (click)="showReserves()">Reserve</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10 canchaContainer">
+              
+             <!-- ********************************************************************** -->
+            <div class="container-fluid" *ngIf="this.currentLineup.formation == '3-4-3'">
+                <!--***************** 3_4_3 *****************-->
+                <div class="row">
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[10].club)}}" alt="" id="player10" (click)="playerAction(10)" [ngStyle]="{'filter': (this.selectedPlayer == 10)? 'drop-shadow(0px 0px 10px #FFFF00)': 'drop-shadow(0px 0px 0px #FFFF00)'}">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[10].objectid"></i>
+                        <p>{{this.currentLineup.players[10].name}}</p>
+                    </div>
+
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[9].club)}}" alt="" id="player9" (click)="playerAction(9)" [ngStyle]="{'filter': (this.selectedPlayer == 9)? 'drop-shadow(0px 0px 10px #FFFF00)': 'drop-shadow(0px 0px 0px #FFFF00)'}">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[9].objectid"></i>
+                        <p>{{this.currentLineup.players[9].name}}</p>
+                    </div>
+
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[8].club)}}" alt="" id="player8" (click)="playerAction(8)" [ngStyle]="{'filter': (this.selectedPlayer == 8)? 'drop-shadow(0px 0px 10px #FFFF00)': 'drop-shadow(0px 0px 0px #FFFF00)'}">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[8].objectid"></i>
+                        <p>{{this.currentLineup.players[8].name}}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[7].club)}}" alt="" id="player7" (click)="playerAction(7)" [ngStyle]="{'filter': (this.selectedPlayer == 7)? 'drop-shadow(0px 0px 10px #FFFF00)': 'drop-shadow(0px 0px 0px #FFFF00)'}">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[7].objectid"></i>
+                        <p>{{this.currentLineup.players[7].name}}</p>
+                    </div>
+
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[6].club)}}" alt="" id="player6" (click)="playerAction(6)" [ngStyle]="{'filter': (this.selectedPlayer == 6)? 'drop-shadow(0px 0px 10px #FFFF00)': 'drop-shadow(0px 0px 0px #FFFF00)'}">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[6].objectid"></i>
+                        <p>{{this.currentLineup.players[6].name}}</p>
+                    </div>
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[5].club)}}" alt="" id="player5" (click)="playerAction(5)" [ngStyle]="{'filter': (this.selectedPlayer == 5)? 'drop-shadow(0px 0px 10px #FFFF00)': 'drop-shadow(0px 0px 0px #FFFF00)'}">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[5].objectid"></i>
+                        <p>{{this.currentLineup.players[5].name}}</p>
+                    </div>
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[4].club)}}" alt="" id="player4" (click)="playerAction(4)" [ngStyle]="{'filter': (this.selectedPlayer == 4)? 'drop-shadow(0px 0px 10px #FFFF00)': 'drop-shadow(0px 0px 0px #FFFF00)'}">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[4].objectid"></i>
+                        <p>{{this.currentLineup.players[4].name}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[3].club)}}" alt="" id="player3" (click)="playerAction(3)"[ngStyle]="{'filter': (this.selectedPlayer == 3)? 'drop-shadow(0px 0px 10px #FFFF00)': 'drop-shadow(0px 0px 0px #FFFF00)'}">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[3].objectid" ></i>
+                        <p>{{this.currentLineup.players[3].name}}</p>
+                    </div>
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[2].club)}}" alt="" id="player2" (click)="playerAction(2)"[ngStyle]="{'filter': (this.selectedPlayer == 2)? 'drop-shadow(0px 0px 10px #FFFF00)': 'drop-shadow(0px 0px 0px #FFFF00)'}">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[2].objectid"></i>
+                        <p>{{this.currentLineup.players[2].name}}</p>
+                    </div>
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[1].club)}}" alt="" id="player1" (click)="playerAction(1)" [ngStyle]="{'filter': (this.selectedPlayer == 1)? 'drop-shadow(0px 0px 10px #FFFF00)': 'drop-shadow(0px 0px 0px #FFFF00)'}">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[1].objectid"></i>
+                        <p>{{this.currentLineup.players[1].name}}</p>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[0].club)}}" alt="" id="player0" (click)="playerAction(0)" [ngStyle]="{'filter': (this.selectedPlayer == 0)? 'drop-shadow(0px 0px 10px #FFFF00)': 'drop-shadow(0px 0px 0px #FFFF00)'}">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[0].objectid"></i>
+                        <p>{{this.currentLineup.players[0].name}}</p>
+                    </div>
+                </div>
+            </div>
+
+             <!-- ********************************************************************** -->
+            <div class="container-fluid" *ngIf="this.currentLineup.formation == '3-5-2'">
+                <!--***************** 3_5_2 *****************-->
+                <div class="row">
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[10].club)}}" alt="" id="player10" (click)="playerAction(10)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[10].objectid"></i>
+                        <p>{{this.currentLineup.players[10].name}}</p>
+                    </div>
+
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[9].club)}}" alt="" id="player9" (click)="playerAction(9)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[9].objectid"></i>
+                        <p>{{this.currentLineup.players[9].name}}</p>
+                    </div>                    
+                </div>
+
+                <div class="row">
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[8].club)}}" alt="" id="player8" (click)="playerAction(8)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[8].objectid"></i>
+                        <p>{{this.currentLineup.players[8].name}}</p>
+                    </div>
+
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[7].club)}}" alt="" id="player7" (click)="playerAction(7)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[7].objectid"></i>
+                        <p>{{this.currentLineup.players[7].name}}</p>
+                    </div>
+
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[6].club)}}" alt="" id="player6" (click)="playerAction(6)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[6].objectid"></i>
+                        <p>{{this.currentLineup.players[6].name}}</p>
+                    </div>
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[5].club)}}" alt="" id="player5" (click)="playerAction(5)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[5].objectid"></i>
+                        <p>{{this.currentLineup.players[5].name}}</p>
+                    </div>
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[4].club)}}" alt="" id="player4" (click)="playerAction(4)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[4].objectid"></i>
+                        <p>{{this.currentLineup.players[4].name}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[3].club)}}" alt="" id="player3" (click)="playerAction(3)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[3].objectid" ></i>
+                        <p>{{this.currentLineup.players[3].name}}</p>
+                    </div>
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[2].club)}}" alt="" id="player2" (click)="playerAction(2)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[2].objectid"></i>
+                        <p>{{this.currentLineup.players[2].name}}</p>
+                    </div>
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[1].club)}}" alt="" id="player1" (click)="playerAction(1)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[1].objectid"></i>
+                        <p>{{this.currentLineup.players[1].name}}</p>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[0].club)}}" alt="" id="player0" (click)="playerAction(0)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[0].objectid"></i>
+                        <p>{{this.currentLineup.players[0].name}}</p>
+                    </div>
+                </div>
+            </div>
+             <!-- ********************************************************************** -->
+            <div class="container-fluid" *ngIf="this.currentLineup.formation == '4-3-3'">
+                <!--***************** 4_3_3 *****************-->
+                <div class="row">
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[10].club)}}" alt="" id="player10" (click)="playerAction(10)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[10].objectid"></i>
+                        <p>{{this.currentLineup.players[10].name}}</p>
+                    </div>
+
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[9].club)}}" alt="" id="player9" (click)="playerAction(9)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[9].objectid"></i>
+                        <p>{{this.currentLineup.players[9].name}}</p>
+                    </div>
+
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[8].club)}}" alt="" id="player8" (click)="playerAction(8)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[8].objectid"></i>
+                        <p>{{this.currentLineup.players[8].name}}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[7].club)}}" alt="" id="player7" (click)="playerAction(7)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[7].objectid"></i>
+                        <p>{{this.currentLineup.players[7].name}}</p>
+                    </div>
+
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[6].club)}}" alt="" id="player6" (click)="playerAction(6)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[6].objectid"></i>
+                        <p>{{this.currentLineup.players[6].name}}</p>
+                    </div>
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[5].club)}}" alt="" id="player5" (click)="playerAction(5)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[5].objectid"></i>
+                        <p>{{this.currentLineup.players[5].name}}</p>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[4].club)}}" alt="" id="player4" (click)="playerAction(4)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[4].objectid"></i>
+                        <p>{{this.currentLineup.players[4].name}}</p>
+                    </div>
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[3].club)}}" alt="" id="player3" (click)="playerAction(3)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[3].objectid" ></i>
+                        <p>{{this.currentLineup.players[3].name}}</p>
+                    </div>
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[2].club)}}" alt="" id="player2" (click)="playerAction(2)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[2].objectid"></i>
+                        <p>{{this.currentLineup.players[2].name}}</p>
+                    </div>
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[1].club)}}" alt="" id="player1" (click)="playerAction(1)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[1].objectid"></i>
+                        <p>{{this.currentLineup.players[1].name}}</p>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[0].club)}}" alt="" id="player0" (click)="playerAction(0)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[0].objectid"></i>
+                        <p>{{this.currentLineup.players[0].name}}</p>
+                    </div>
+                </div>
+            </div>
+             <!-- ********************************************************************** -->
+            <div class="container-fluid" *ngIf="this.currentLineup.formation == '4-4-2'">
+                <!--***************** 4_4_2 *****************-->
+                <div class="row">
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[10].club)}}" alt="" id="player10" (click)="playerAction(10)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[10].objectid"></i>
+                        <p>{{this.currentLineup.players[10].name}}</p>
+                    </div>
+
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[9].club)}}" alt="" id="player9" (click)="playerAction(9)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[9].objectid"></i>
+                        <p>{{this.currentLineup.players[9].name}}</p>
+                    </div>
+
+                    
+                </div>
+
+                <div class="row">
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[8].club)}}" alt="" id="player8" (click)="playerAction(8)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[8].objectid"></i>
+                        <p>{{this.currentLineup.players[8].name}}</p>
+                    </div>
+
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[7].club)}}" alt="" id="player7" (click)="playerAction(7)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[7].objectid"></i>
+                        <p>{{this.currentLineup.players[7].name}}</p>
+                    </div>
+
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[6].club)}}" alt="" id="player6" (click)="playerAction(6)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[6].objectid"></i>
+                        <p>{{this.currentLineup.players[6].name}}</p>
+                    </div>
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[5].club)}}" alt="" id="player5" (click)="playerAction(5)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[5].objectid"></i>
+                        <p>{{this.currentLineup.players[5].name}}</p>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[4].club)}}" alt="" id="player4" (click)="playerAction(4)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[4].objectid"></i>
+                        <p>{{this.currentLineup.players[4].name}}</p>
+                    </div>
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[3].club)}}" alt="" id="player3" (click)="playerAction(3)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[3].objectid" ></i>
+                        <p>{{this.currentLineup.players[3].name}}</p>
+                    </div>
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[2].club)}}" alt="" id="player2" (click)="playerAction(2)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[2].objectid"></i>
+                        <p>{{this.currentLineup.players[2].name}}</p>
+                    </div>
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[1].club)}}" alt="" id="player1" (click)="playerAction(1)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[1].objectid"></i>
+                        <p>{{this.currentLineup.players[1].name}}</p>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[0].club)}}" alt="" id="player0" (click)="playerAction(0)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[0].objectid"></i>
+                        <p>{{this.currentLineup.players[0].name}}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ********************************************************************** -->
+            <div class="container-fluid" *ngIf="this.currentLineup.formation == '4-5-1'">
+                <!--***************** 4_5_1 *****************-->
+                <div class="row">
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[10].club)}}" alt="" id="player10" (click)="playerAction(10)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[10].objectid"></i>
+                        <p>{{this.currentLineup.players[10].name}}</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[9].club)}}" alt="" id="player9" (click)="playerAction(9)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[9].objectid"></i>
+                        <p>{{this.currentLineup.players[9].name}}</p>
+                    </div>
+
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[8].club)}}" alt="" id="player8" (click)="playerAction(8)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[8].objectid"></i>
+                        <p>{{this.currentLineup.players[8].name}}</p>
+                    </div>
+
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[7].club)}}" alt="" id="player7" (click)="playerAction(7)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[7].objectid"></i>
+                        <p>{{this.currentLineup.players[7].name}}</p>
+                    </div>
+
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[6].club)}}" alt="" id="player6" (click)="playerAction(6)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[6].objectid"></i>
+                        <p>{{this.currentLineup.players[6].name}}</p>
+                    </div>
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[5].club)}}" alt="" id="player5" (click)="playerAction(5)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[5].objectid"></i>
+                        <p>{{this.currentLineup.players[5].name}}</p>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[4].club)}}" alt="" id="player4" (click)="playerAction(4)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[4].objectid"></i>
+                        <p>{{this.currentLineup.players[4].name}}</p>
+                    </div>
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[3].club)}}" alt="" id="player3" (click)="playerAction(3)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[3].objectid" ></i>
+                        <p>{{this.currentLineup.players[3].name}}</p>
+                    </div>
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[2].club)}}" alt="" id="player2" (click)="playerAction(2)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[2].objectid"></i>
+                        <p>{{this.currentLineup.players[2].name}}</p>
+                    </div>
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[1].club)}}" alt="" id="player1" (click)="playerAction(1)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[1].objectid"></i>
+                        <p>{{this.currentLineup.players[1].name}}</p>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[0].club)}}" alt="" id="player0" (click)="playerAction(0)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[0].objectid"></i>
+                        <p>{{this.currentLineup.players[0].name}}</p>
+                    </div>
+                </div>
+            </div>
+            <!-- ********************************************************************** -->
+            <div class="container-fluid" *ngIf="this.currentLineup.formation == '5-3-2'">
+                <!--***************** 5_3_2 *****************-->
+                <div class="row">
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[10].club)}}" alt="" id="player10" (click)="playerAction(10)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[10].objectid"></i>
+                        <p>{{this.currentLineup.players[10].name}}</p>
+                    </div>
+
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[9].club)}}" alt="" id="player9" (click)="playerAction(9)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[9].objectid"></i>
+                        <p>{{this.currentLineup.players[9].name}}</p>
+                    </div>
+
+                    
+                </div>
+
+                <div class="row">
+
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[8].club)}}" alt="" id="player8" (click)="playerAction(8)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[8].objectid"></i>
+                        <p>{{this.currentLineup.players[8].name}}</p>
+                    </div>
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[7].club)}}" alt="" id="player7" (click)="playerAction(7)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[7].objectid"></i>
+                        <p>{{this.currentLineup.players[7].name}}</p>
+                    </div>
+
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[6].club)}}" alt="" id="player6" (click)="playerAction(6)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[6].objectid"></i>
+                        <p>{{this.currentLineup.players[6].name}}</p>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[5].club)}}" alt="" id="player5" (click)="playerAction(5)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[5].objectid"></i>
+                        <p>{{this.currentLineup.players[5].name}}</p>
+                    </div>
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[4].club)}}" alt="" id="player4" (click)="playerAction(4)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[4].objectid"></i>
+                        <p>{{this.currentLineup.players[4].name}}</p>
+                    </div>
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[3].club)}}" alt="" id="player3" (click)="playerAction(3)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[3].objectid" ></i>
+                        <p>{{this.currentLineup.players[3].name}}</p>
+                    </div>
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[2].club)}}" alt="" id="player2" (click)="playerAction(2)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[2].objectid"></i>
+                        <p>{{this.currentLineup.players[2].name}}</p>
+                    </div>
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[1].club)}}" alt="" id="player1" (click)="playerAction(1)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[1].objectid"></i>
+                        <p>{{this.currentLineup.players[1].name}}</p>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[0].club)}}" alt="" id="player0" (click)="playerAction(0)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[0].objectid"></i>
+                        <p>{{this.currentLineup.players[0].name}}</p>
+                    </div>
+                </div>
+            </div>
+            <!-- ********************************************************************** -->
+
+            <div class="container-fluid" *ngIf="this.currentLineup.formation == '5-4-1'">
+                <!--***************** 5_4_1 *****************-->
+                <div class="row">
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[10].club)}}" alt="" id="player10" (click)="playerAction(10)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[10].objectid"></i>
+                        <p>{{this.currentLineup.players[10].name}}</p>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[9].club)}}" alt="" id="player9" (click)="playerAction(9)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[9].objectid"></i>
+                        <p>{{this.currentLineup.players[9].name}}</p>
+                    </div>
+
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[8].club)}}" alt="" id="player8" (click)="playerAction(8)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[8].objectid"></i>
+                        <p>{{this.currentLineup.players[8].name}}</p>
+                    </div>
+
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[7].club)}}" alt="" id="player7" (click)="playerAction(7)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[7].objectid"></i>
+                        <p>{{this.currentLineup.players[7].name}}</p>
+                    </div>
+
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[6].club)}}" alt="" id="player6" (click)="playerAction(6)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[6].objectid"></i>
+                        <p>{{this.currentLineup.players[6].name}}</p>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[5].club)}}" alt="" id="player5" (click)="playerAction(5)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[5].objectid"></i>
+                        <p>{{this.currentLineup.players[5].name}}</p>
+                    </div>
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[4].club)}}" alt="" id="player4" (click)="playerAction(4)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[4].objectid"></i>
+                        <p>{{this.currentLineup.players[4].name}}</p>
+                    </div>
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[3].club)}}" alt="" id="player3" (click)="playerAction(3)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[3].objectid" ></i>
+                        <p>{{this.currentLineup.players[3].name}}</p>
+                    </div>
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[2].club)}}" alt="" id="player2" (click)="playerAction(2)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[2].objectid"></i>
+                        <p>{{this.currentLineup.players[2].name}}</p>
+                    </div>
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[1].club)}}" alt="" id="player1" (click)="playerAction(1)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[1].objectid"></i>
+                        <p>{{this.currentLineup.players[1].name}}</p>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="player">
+                        <img src="{{this.clubsService.getUniform(this.currentLineup.players[0].club)}}" alt="" id="player0" (click)="playerAction(0)">
+                        <i class="far fa-copyright" *ngIf="this.currentLineup.captain == this.currentLineup.players[0].objectid"></i>
+                        <p>{{this.currentLineup.players[0].name}}</p>
+                    </div>
+                </div>
+            </div>
+            <!-- ********************************************************************** -->
+            
+        <div class="col-md-2" id="banca">
+            <div class="row">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item active" aria-current="page">Banca</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="row">
+                <div class="player">
+                    <img src="{{this.clubsService.getUniform(this.currentLineup.players[11].club)}}" alt="" (click)="playerAction(11)" [ngStyle]="{'filter': (this.selectedPlayer == 11)? 'drop-shadow(0px 0px 10px #FFFF00)': 'drop-shadow(0px 0px 0px #FFFF00)'}">
+                    <p>{{this.currentLineup.players[11].name}}</p>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="player">
+                    <img src="{{this.clubsService.getUniform(this.currentLineup.players[12].club)}}" alt="" (click)="playerAction(12)" [ngStyle]="{'filter': (this.selectedPlayer == 12)? 'drop-shadow(0px 0px 10px #FFFF00)': 'drop-shadow(0px 0px 0px #FFFF00)'}">
+                    <p>{{this.currentLineup.players[12].name}}</p>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="player">
+                    <img src="{{this.clubsService.getUniform(this.currentLineup.players[13].club)}}" alt="" (click)="playerAction(13)" [ngStyle]="{'filter': (this.selectedPlayer == 13)? 'drop-shadow(0px 0px 10px #FFFF00)': 'drop-shadow(0px 0px 0px #FFFF00)'}">
+                    <p>{{this.currentLineup.players[13].name}}</p>
+                </div>
+
+            </div>
+            <!-- 
+        </div><app-modal-reserva></app-modal-reserva>*************************************************************** -->
+        </div>
+    </div>
+</div>

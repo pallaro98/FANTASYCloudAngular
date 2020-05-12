@@ -39,9 +39,13 @@ export class TeamsComponent implements OnInit {
 
   updateCurrentTeam(t: Team) {
     this.teamsService.updateCurrentTeam(t);
-    this.lineupsService.getLineupByMatchdayTeam('1', t.objectid, 'current').then(() => { //test
+    this.lineupsService.getLineupByMatchdayTeam('1', t.objectid, 'current').then(() => { //test change 1 to jornada actual
       this.leagueService.getLeagueById(t.league).then(() => {
-        this.router.navigate(['/myteam']);
+        this.leagueService.getteamsLeague().then(() => {
+          this.leagueService.getOwnersByLeague().then(() => {
+            this.router.navigate(['/myteam']);
+          });
+        });
       });
     });
   }

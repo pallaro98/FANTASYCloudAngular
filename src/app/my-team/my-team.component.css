@@ -1,0 +1,144 @@
+
+.row.breadcrumb{
+    margin-bottom: 0px;
+}
+
+#logoImg{
+    border-radius: 50%;
+    max-height: 90px;
+}
+
+#banca{
+    background-color: gray;
+}
+
+.dropdown{
+    height: 100%;
+}
+
+.dropdown button{
+    height: inherit;
+    width: 100%;
+}
+
+.dropdown.show .dropdown-menu.show{
+    width: 100%;
+}
+
+div.row h2{
+    line-height: 80px;
+    font-weight: bold;
+}
+
+nav img{
+    max-height: 50px;
+}
+
+.canchaContainer{
+    background-image: url("../../assets/images/fondos/Cancha.jpg");
+    background-size: 100% 100%;
+}
+
+#banca img{
+    max-height: 110px;
+    max-width: 110px;
+    margin: auto;
+    opacity: 1; 
+}
+
+#banca img:hover{
+    opacity: 0.7;     
+}
+
+.canchaContainer img{
+    max-height: 90px;
+    max-width: 90px;
+    opacity: 1; 
+}
+
+@media screen and (max-width: 500px){
+    .canchaContainer img{
+        max-height: 45px;
+        max-width: 45px;
+        opacity: 1; 
+    }
+
+    #banca img{
+        max-height: 50px;
+        max-width: 50px;
+        margin: auto;
+        opacity: 1; 
+    }
+}
+
+.canchaContainer img:hover{
+    opacity: 0.8; 
+}
+
+.canchaContainer .row{
+    padding: 20px 0px;
+}
+
+#banca .row{
+    padding: 20px 0px;
+}
+
+#banca .row div{
+    margin: auto;
+}
+
+.canchaContainer .row div{
+    margin: auto;
+}
+
+.btn.btn-info{
+    /* border-radius: 40%; */
+    margin: auto;
+}
+
+.player p{
+    color: white;
+    font-weight: bold;
+    text-shadow: 0 0 30px #000000, 0 0 40px #000000, 0 0 55px #000000, 0 0 75px #000000, 2px 2px 2px #000000;
+    opacity: 1;
+}
+
+.badge.badge-light{
+    margin: center;
+}
+
+#banca .row:first-of-type{
+    padding: 0px;
+}
+
+#banca nav{
+    width: 100%;
+}
+
+#banca ol{
+    margin: 0px;
+}
+
+#banca li{
+    margin: auto;
+}
+
+i{
+    font-size: 24px;
+}
+
+.botonesDeControl{
+    padding: 0px;
+}
+
+.botonesDeControl button{
+    width: 100%;
+}
+
+#barraCambios div{
+    background-color: #F8F9FA;
+}
+
+.far.fa-copyright{
+    color: white;
+}
