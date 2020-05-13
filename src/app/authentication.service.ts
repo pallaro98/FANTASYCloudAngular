@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { User } from './classes/User';
 
@@ -11,8 +11,12 @@ export class AuthenticationService {
   currentusername = new Subject<string>();
   currentuserimage = new Subject<string>();
   userLogged = false;
-
-
+  invokeUrl = 'https://ast0b1w1p1.execute-api.us-east-1.amazonaws.com/pruebas';
+  httpOptions = {
+    headers: new HttpHeaders({ 
+      'Access-Control-Allow-Origin':'*'
+    })
+  };
   constructor(private httpClient: HttpClient) { }
 
   loginvalidate(user, pass): Promise<any> {
@@ -21,7 +25,7 @@ export class AuthenticationService {
 
       const body = JSON.stringify({username: user, password: pass});
 
-      this.httpClient.post('https://ast0b1w1p1.execute-api.us-east-1.amazonaws.com/pruebas/users/login', body).subscribe(users => {
+      this.httpClient.post(this.invokeUrl + '/users/login', body).subscribe(users => {
         console.log(users);
         if (users !== false) {
           const objectid = users['objectid']['S'];
@@ -41,9 +45,25 @@ export class AuthenticationService {
     });
   }
 
-  registervalidate(): Promise<any> {
+  registervalidate(username, password, email): Promise<any> {
     return new Promise((resolve, reject) => {
-      reject();
+      const body = JSON.stringify({username, password, email});
+
+      this.httpClient.post(this.invokeUrl + '/users/register', body, {responseType: 'json'})
+        .subscribe(response => {
+        console.log('In registervalidate: ', response);
+        let objectid = response['body']['objectid'];
+        let imageUri = response['body']['image'];
+        this.currentuser = new User(objectid, username, imageUri, password, email);
+        this.currentusername.next(username);
+        this.currentuserimage.next(imageUri);
+        this.userLogged = true;
+        console.log(this.currentuser);
+        if(Number(response['statusCode'] !== 200))
+          reject();
+        else
+          resolve(this.currentuser);
+      });
     });
   }
 
