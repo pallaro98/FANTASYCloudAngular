@@ -21,6 +21,27 @@ export class TeamsComponent implements OnInit {
   invalidForm = true;
   closeResult: string;
   competitionInfo: number;
+  teamShield: any;
+  teamName: any;
+  getFile(event) {
+    if (event.target.files && event.target.files[0]) {
+      let file = event.target.files[0];
+      this.teamName = event.target.files[0].name;
+      console.log('file: ', file);
+      let newFile;
+      let fr = new FileReader();
+      fr.readAsDataURL(file)
+      fr.onload = (event:any)=>{
+          let base64 = event.target.result;
+          this.teamShield = base64;
+      }
+      
+      console.log(file)
+      console.log(newFile) // Either prints undefined or whatever initial value it contains
+
+    }
+  }
+
   constructor(  private authenticationService: AuthenticationService, private router: Router,
                 private teamsService: TeamsService, private modalService: NgbModal,
                 private lineupsService: LineupsService, private leagueService: LeagueService) {
@@ -51,10 +72,15 @@ export class TeamsComponent implements OnInit {
   }
 
   addTeam(form: NgForm) {
+    console.log('Gay quien lo lea excepto el que lo escribio');
     console.log(form.value);
-
-    this.teamsService.createNewTeam(form.value.nombreEquipo, this.user).then(() => {
+    this.teamsService.createNewTeam(form.value.nombreEquipo, this.teamShield, 
+      this.user.objectid, this.teamName).then(() => {
       this.modalService.dismissAll();
+      this.teamsService.getTeamsByUserId(this.user.objectid).then((t) => {
+        this.teams = t;
+        console.log(this.teams);
+      });
       //this.router.navigate(['/miequipo']);
       console.log("se creo el equipo");
     }).catch(err => {

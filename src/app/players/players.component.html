@@ -75,9 +75,9 @@
                         <tr *ngFor="let p of players | paginate: {itemsPerPage: 7, currentPage: p}; let i = index">
                         <td><img src={{p.photo}}></td>
                         <td>{{p.name}}</td>
-                        <td *ngIf="getOwner(p.objectid).objectid != this.currentTeam.objectid && getOwner(p.objectid) != 'free'">{{getOwner(p.objectid).name}}</td>
+                        <!-- <td *ngIf="getOwner(p.objectid).objectid != this.currentTeam.objectid && getOwner(p.objectid) != 'free'">{{getOwner(p.objectid).name}}</td>
                         <td *ngIf="getOwner(p.objectid).objectid == this.currentTeam.objectid"><button (click) = "sellPlayer(p.objectid)"> Vender</button></td>
-                        <td *ngIf="getOwner(p.objectid) == 'free'"><button (click) = "buyPlayer(p.objectid)">Comprar</button></td>
+                        <td *ngIf="getOwner(p.objectid) == 'free'"><button (click) = "buyPlayer(p.objectid)">Comprar</button></td> -->
                         <td>{{p.age}}</td>
                         <td>{{p.positions}}</td>
                         <td>${{p.value}}</td>

@@ -10,6 +10,7 @@ import { Player } from './classes/Player';
 export class TeamsService {
   teams: Team[];
   currentTeam: Team;
+  invokeUrl = 'https://ast0b1w1p1.execute-api.us-east-1.amazonaws.com/pruebas';
   constructor(private httpClient: HttpClient) { }
 
   getTeamsByUserId(userid): Promise<any> {
@@ -45,13 +46,21 @@ export class TeamsService {
     this.currentTeam = t;
   }
 
-  createNewTeam(name: string, user: User): Promise<any> {
+  
+  createNewTeam(name: string, blob: Blob, user: string, teamName): Promise<any> {
     return new Promise((resolve, reject) => {
+      console.log('Creating my team...');
+      const body = JSON.stringify({name, blob, user, teamName});
+
+      this.httpClient.post(this.invokeUrl + '/teams/register', body, {responseType: 'json'})
+        .subscribe(response => {
+          console.log('Create new team result: ', response);
+        });
       resolve();
     });
 
   }
-
+  
   getCurrentTeam() {
     return this.currentTeam;
   }
