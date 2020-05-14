@@ -89,6 +89,7 @@ filterPlayers(name, competition, club, pos, minage, maxage, minvalue, maxvalue):
 
 getPlayersArrayByID(p: string[]): Player[] {
   const players = [];
+  console.log(p);
   p.forEach(a => {
     players.push(this.getPlayerByID(a));
   });
