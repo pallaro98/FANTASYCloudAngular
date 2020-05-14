@@ -32,11 +32,21 @@ export class LoginComponent implements OnInit {
   }
 
   register(register: NgForm) {
-    this.authenticationService.registervalidate().then(() => {
+    if(register.value.PassR === register.value.Pass2R) {
+      this.authenticationService.registervalidate(
+        register.value.UsuarioR,
+        register.value.PassR,
+        register.value.EmailR
+        ).then(() => {
       this.router.navigate(['/teams']);
+      // console.log('Registered successfully')
     }).catch(() => {
       this.invalidFormR = true;
     });
+    } else {
+      this.invalidFormR = true;
+    }
+    
   }
 
   login(log: NgForm) {

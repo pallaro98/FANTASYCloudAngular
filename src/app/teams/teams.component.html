@@ -26,7 +26,8 @@
   
                 <form #teamAddForm="ngForm" (ngSubmit)="addTeam(teamAddForm)">
                   <div class="form-group row col-12">
-                    <input type="file" class="form-control" id="img" name="img" accept="image/*" ngModel required>
+                    <input type="file" class="form-control" id="img" name="img" 
+                    (change)="getFile($event)" accept="image/*" ngModel required>
                     <label for="inputUsuario" class="col-form-label">Nombre del Equipo:</label>
                     <input type="text" class="form-control" placeholder="Equipo" name="nombreEquipo"
                       (change)="invalidForm = false;" ngModel required>
