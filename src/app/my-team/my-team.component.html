@@ -28,7 +28,32 @@
            <!-- <app-modal-cambios></app-modal-cambios>-->
            <button (click)="changeMode()" [ngStyle]="{'background-color': this.subsMode? 'green' : 'red'}">Substitution</button>
            <button (click)="save()" [ngStyle]="{'background-color': this.changesMade? 'blue' : 'white'}">Save</button>
-           <button (click)="showReserves()">Reserve</button>
+
+           <ng-template #reservas let-modal>
+            <div class="modal-header">
+              <h4 class="modal-title" id="modal-basic-title">Reservas</h4>
+              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="jumbotron col-12" *ngFor="let r of reserves">
+                    <div class="row"  (click)="reserveAction(r)">
+                        <img src="{{r.photo}}" alt="" class="reserveimg"> {{r.name}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-outline-dark">Close</button>
+            </div>
+          </ng-template>
+
+          <button (click)="showReserves(reservas)">Reserve</button>
+
         </div>
     </div>
     <div class="row">

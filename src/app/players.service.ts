@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class PlayersService {
   players: Player[];
+  defaultplayer = new Player('defaultplayer', 'defaultclub', 'defaultcountry', 'no player', 'https://res.cloudinary.com/pallarofantasy/image/upload/v1589322382/Fantasy/Players/default_vds0tz.png', 'GK-RWB-RB-CB-LB-LWB-RM-CDM-CM-CAM-LM-RW-CF-ST-LW', 0, 0, 0);
   playersToShow: Player[];
   currentPlayer: Player;
 
@@ -17,6 +18,9 @@ export class PlayersService {
   }
 
   getPlayerByID(id: string): Player {
+    if (id === 'defaultplayer') {
+      return this.defaultplayer;
+    }
     return this.players.slice().filter(futbolista => (futbolista.objectid === id))[0];
   }
 
@@ -28,16 +32,18 @@ export class PlayersService {
       this.httpClient.get<Player[]>(url).subscribe(players => {
         const allplayers = [];
         players.forEach(p => {
-          allplayers.push(new Player(   p['objectid'],
-                                        p['club'],
-                                        p['country'],
-                                        p['name'],
-                                        p['photo'],
-                                        p['positions'],
-                                        p['value'],
-                                        p['points'],
-                                        this.findAge(p['birthday'])
-          ));
+          if (p.objectid !== 'defaultplayer') {
+            allplayers.push(new Player(   p['objectid'],
+                                          p['club'],
+                                          p['country'],
+                                          p['name'],
+                                          p['photo'],
+                                          p['positions'],
+                                          p['value'],
+                                          p['points'],
+                                          this.findAge(p['birthday'])
+            ));
+          }
         });
         this.players = allplayers;
         console.log(allplayers);
@@ -88,5 +94,6 @@ getPlayersArrayByID(p: string[]): Player[] {
   });
   return players;
 }
+
 
 }

@@ -10,6 +10,7 @@ import { PlayersService } from '../players.service';
 import { Player } from '../classes/Player';
 import { Lineup } from '../classes/Lineup';
 import { ClubsService } from '../clubs.service';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-my-team',
@@ -19,11 +20,12 @@ import { ClubsService } from '../clubs.service';
 export class MyTeamComponent implements OnInit {
   currentTeam: Team;
   currentLineup: Lineup;
-  reservas: Player[];
+  closeResult: string;
 
   subsMode = false;
   selectedPlayer = -1;
   changesMade = false;
+  reserves: Player[];
 
   constructor(  private authenticationService: AuthenticationService,
                 private matchService: MatchService,
@@ -32,6 +34,7 @@ export class MyTeamComponent implements OnInit {
                 private playersService: PlayersService,
                 public clubsService: ClubsService,
                 private router: Router,
+                private modalService: NgbModal,
                 private leagueService: LeagueService) { }
 
   ngOnInit(): void {
@@ -65,29 +68,60 @@ export class MyTeamComponent implements OnInit {
     this.changesMade = false;
   }
 
-  showReserves() {
+  showReserves(reservas: any) {
+    this.reserves = this.leagueService.getPlayersByTeam(this.currentTeam.objectid);
+    console.log(this.reserves);
+    this.reserves = this.reserves.filter((p) => (this.currentLineup.players.indexOf(p) === -1));
+    console.log(this.reserves);
 
+    this.modalService.open(reservas, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
+    }
   }
 
   showPlayer() {
 
   }
 
-  playerAction(p) {
+  playerAction(pos) {
     if (this.subsMode) {
       if (this.selectedPlayer === -1) {
-        this.selectedPlayer = p;
+        this.selectedPlayer = pos;
       } else {
-        const temp = this.currentLineup.players[p];
-        this.currentLineup.players[p] = this.currentLineup.players[this.selectedPlayer];
+        const temp = this.currentLineup.players[pos];
+        this.currentLineup.players[pos] = this.currentLineup.players[this.selectedPlayer];
         this.currentLineup.players[this.selectedPlayer] = temp;
-
+        
         this.selectedPlayer = -1;
         this.changesMade = true;
       }
     } else {
 
     }
+  }
+
+  reserveAction(r) {
+    if (this.subsMode) {
+      if (this.selectedPlayer !== -1) {
+        this.currentLineup.players[this.selectedPlayer] = r;
+        this.selectedPlayer = -1;
+        this.changesMade = true;
+      }
+    }
+    this.modalService.dismissAll();
+
   }
 
 }

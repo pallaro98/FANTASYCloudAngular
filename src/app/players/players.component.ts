@@ -10,6 +10,7 @@ import { ClubsService } from '../clubs.service';
 import { PlayersService } from '../players.service';
 import { LeagueService } from '../league.service';
 import { TeamsService } from '../teams.service';
+import { LineupsService } from '../lineups.service';
 
 @Component({
   selector: 'app-players',
@@ -38,7 +39,8 @@ export class PlayersComponent implements OnInit {
                 private playersService: PlayersService,
                 private clubsService: ClubsService,
                 private leagueService: LeagueService,
-                private teamsService: TeamsService
+                private teamsService: TeamsService,
+                private lineupService: LineupsService
     ) { }
 
   ngOnInit(): void {
@@ -100,9 +102,6 @@ export class PlayersComponent implements OnInit {
   }
 
   getOwner(id) {
-    if (this.owners.get(id) === 'free') {
-      return 'free';
-    }
     return this.leagueService.getTeamByID(this.owners.get(id));
   }
 
@@ -114,8 +113,9 @@ export class PlayersComponent implements OnInit {
   }
 
   sellPlayer(p) {
-    this.owners = this.leagueService.changeOwner(p, 'free');
+    this.owners = this.leagueService.changeOwner(p, 'defaultteam');
     this.currentTeam = this.teamsService.sellPlayer(this.playersService.getPlayerByID(p));
+    this.lineupService.removePlayerFromLineup(this.playersService.getPlayerByID(p));
     console.log(this.currentTeam);
     console.log(this.owners);
   }

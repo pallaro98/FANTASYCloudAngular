@@ -4,6 +4,7 @@ import { League } from './classes/League';
 import { HttpClient } from '@angular/common/http';
 import { Team } from './classes/Team';
 import { Player } from './classes/Player';
+import { PlayersService } from './players.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class LeagueService {
   currentLeague: League;
   teamsLeague: Team[];
   owners: Map<string, string>;
-  constructor(private teamsService: TeamsService, private httpClient: HttpClient) { }
+  constructor(private teamsService: TeamsService, private playersService: PlayersService, private httpClient: HttpClient) { }
 
 
   getLeagueById(id): Promise<any> {
@@ -79,7 +80,7 @@ export class LeagueService {
           if (b.leaguepoints !== a.leaguepoints) {
             return b.leaguepoints - a.leaguepoints;
           } else if ((b.favorpoints - b.againstpoints) !== (a.favorpoints - a.againstpoints)) {
-            return (b.favorpoints - b.againstpoints) - (a.favorpoints - a.againstpoints)
+            return (b.favorpoints - b.againstpoints) - (a.favorpoints - a.againstpoints);
           } else {
             return b.favorpoints - a.favorpoints;
           }
@@ -100,6 +101,9 @@ export class LeagueService {
   }
 
   getTeamByID(id) {
+    if (id === 'defaultteam') {
+      return this.teamsService.defaultTeam;
+    }
       return this.teamsLeague.slice().filter(team => (team.objectid === id))[0];
   }
 
@@ -107,10 +111,17 @@ export class LeagueService {
     return this.teamsLeague;
   }
 
-  changeOwner(p, t){
+  changeOwner(p, t) {
     this.owners.delete(p);
     this.owners.set(p, t);
     //todo update db
     return this.owners;
+  }
+
+  getPlayersByTeam(teamid) {
+    const arr = [...this.owners.entries()]
+        .filter(({ 1: v }) => v === teamid)
+        .map(([k]) => this.playersService.getPlayerByID(k));
+    return arr;
   }
 }

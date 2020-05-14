@@ -10,6 +10,7 @@ import { Player } from './classes/Player';
 export class TeamsService {
   teams: Team[];
   currentTeam: Team;
+  defaultTeam = new Team('defaultteam', 'defaultuser', 'defaultleague', 'free', '', '', 0, 0, 0, 0, 0, '0-0-0');
   constructor(private httpClient: HttpClient) { }
 
   getTeamsByUserId(userid): Promise<any> {

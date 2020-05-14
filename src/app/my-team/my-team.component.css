@@ -1,3 +1,7 @@
+.reserveimg{
+    max-height: 50px;
+    max-width: 50px;
+}
 
 .row.breadcrumb{
     margin-bottom: 0px;

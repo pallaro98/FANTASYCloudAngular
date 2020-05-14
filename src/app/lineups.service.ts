@@ -90,4 +90,9 @@ export class LineupsService {
     return this.currentTeamLineup;
   }
 
+  removePlayerFromLineup(player) {
+    this.currentTeamLineup.players[this.currentTeamLineup.players.indexOf(player)] = this.playersService.defaultplayer;
+    //todo update db
+  }
+
 }
